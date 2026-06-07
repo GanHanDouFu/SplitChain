@@ -483,8 +483,8 @@ function renderTx(){
   const f=document.getElementById('txFeed');
   if(!transactions.length){f.innerHTML='<div class="empty-state"><div class="void-icon">—</div><p>暂无分账记录，连接钱包后开始使用</p></div>';return;}
   f.innerHTML=transactions.map(t=>{
-    const e=t.type==='error',c=e?'error':'success',ic=e?'!':(t.type==='create'?'+':'~');
-    return `<div class="tx-item ${c}"><div class="tx-icon-block">${ic}</div><div class="tx-content"><div class="tx-header"><span class="tx-title">${e?'交易失败':(t.type==='create'?'创建分账计划':'执行分账')}</span><span class="tx-time">${t.time}</span></div>${t.hash?`<a class="tx-hash" href="${EXPLORER}/tx/${t.hash}" target="_blank">${t.hash}</a>`:''}<div class="tx-details">${t.amount?t.amount+' ETH → '+t.addresses.length+' 个地址':t.error||''}</div><span class="tx-status-tag">${e?'失败':'已确认'}</span></div></div>`;
+    const e=t.type==='error',c=e?'error':'success',step=t.type==='create'?'1':'2',ico=t.type==='create'?'创建':'执行';
+    return `<div class="tx-item ${c}"><div class="tx-icon-block">${e?'✕':step}</div><div class="tx-content"><div class="tx-header"><span class="tx-title">${e?'交易失败':('第'+step+'步 · '+ico+'分账')}</span><span class="tx-time">${t.time}</span></div>${t.hash?`<a class="tx-hash" href="${EXPLORER}/tx/${t.hash}" target="_blank">${t.hash}</a>`:''}<div class="tx-details">${t.amount?t.amount+' ETH → '+t.addresses.length+' 个地址':t.error||''}</div><span class="tx-status-tag">${e?'失败':'已确认'}</span></div></div>`;
   }).join('');
 }
 function saveHistory(){try{localStorage.setItem('splitchain_log',JSON.stringify(transactions.slice(0,50)));}catch(e){}}

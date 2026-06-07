@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p docs)",
+      "Bash(cp split-payment-agent/demo/index.html docs/)",
+      "Bash(cp split-payment-agent/demo/web3.min.js docs/)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)"
+    ]
+  }
+}
