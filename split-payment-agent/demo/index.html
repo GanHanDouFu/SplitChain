@@ -11,18 +11,19 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:        #faf9f5;
+  --bg:        #f7f5ef;
   --bg-card:   #ffffff;
-  --bg-muted:  #e8e6dc;
+  --bg-muted:  #ebe8df;
   --border:    #d4d0c8;
   --border-light: #e8e6dc;
+  --shadow:    0 10px 28px rgba(20,20,19,0.045), 0 1px 2px rgba(20,20,19,0.04);
   --text:      #0a0a09;
   --text-dim:  #4a4740;
   --text-mute: #8a857e;
   --orange:    #d97757;
   --orange-dim: rgba(217,119,87,0.12);
   --blue:      #6a9bcc;
-  --green:     #788c5d;
+  --green:     #6f8a58;
   --red:       #c44e4e;
   --red-dim:   rgba(196,78,78,0.1);
   --font-heading: 'Poppins', Arial, sans-serif;
@@ -39,11 +40,11 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg-muted); }
 ::-webkit-scrollbar-thumb { background: var(--text-mute); border-radius: 4px; }
 
-.app { max-width: 1040px; margin: 0 auto; padding: 28px 20px; }
+.app { max-width: 1100px; margin: 0 auto; padding: 32px 18px 28px; }
 
 .header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 24px 0 20px; margin-bottom: 24px;
+  padding: 20px 0 18px; margin-bottom: 26px;
   border-bottom: 1px solid var(--border-light);
 }
 .logo { display: flex; align-items: center; gap: 8px; }
@@ -70,7 +71,7 @@ body {
   letter-spacing: 0.2px; transition: all 0.15s ease;
 }
 .btn-primary { background: var(--orange); color: #fff; }
-.btn-primary:hover { background: #c86a4d; }
+.btn-primary:hover { background: #c86a4d; transform: translateY(-1px); }
 .btn-secondary { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
 .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
 .btn-sm { padding: 4px 10px; font-size: 10px; }
@@ -78,37 +79,51 @@ body {
 
 .stats-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
 .stat-block {
-  background: var(--bg-card); padding: 20px 16px; text-align: center;
-  box-shadow: 0 1px 3px rgba(20,20,19,0.05); border-radius: 12px; transition: transform 0.15s ease;
+  position: relative; background: var(--bg-card); padding: 20px 16px 18px; text-align: center;
+  border: 1px solid rgba(212,208,200,0.65); box-shadow: var(--shadow); border-radius: 8px; transition: transform 0.15s ease, border-color 0.15s ease;
 }
-.stat-block:hover { transform: translateY(-2px); }
-.stat-value { font-family: var(--font-heading); font-size: 34px; font-weight: 600; color: var(--orange); letter-spacing: -1px; line-height: 1; }
+.stat-block::before { content: ""; position: absolute; left: 14px; right: 14px; top: 0; height: 3px; border-radius: 0 0 3px 3px; background: rgba(217,119,87,0.55); opacity: 0; transition: opacity 0.15s; }
+.stat-block:hover { transform: translateY(-2px); border-color: rgba(217,119,87,0.32); }
+.stat-block:hover::before { opacity: 1; }
+.stat-value { font-family: var(--font-heading); font-size: 34px; font-weight: 600; color: var(--orange); letter-spacing: -1px; line-height: 1; font-variant-numeric: tabular-nums; }
 .stat-label { font-size: 11px; color: var(--text-mute); font-family: var(--font-heading); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-top: 8px; }
 
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .grid-full { grid-column: 1 / -1; }
 
-.card { background: var(--bg-card); padding: 28px 30px; border-radius: 12px; box-shadow: 0 1px 3px rgba(20,20,19,0.05); }
-.card-header { display: flex; align-items: center; justify-content: space-between; height: 32px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border-light); }
+.card { background: var(--bg-card); padding: 28px 32px; border: 1px solid rgba(212,208,200,0.62); border-radius: 8px; box-shadow: var(--shadow); }
+.card-header { display: flex; align-items: center; justify-content: space-between; min-height: 0; margin-bottom: 2px; padding-bottom: 0; }
 .card-title { font-family: var(--font-heading); font-size: 15px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; line-height: 1; }
 .card-title .accent-dot { width: 7px; height: 7px; background: var(--orange); border-radius: 50%; }
 
-.form-group { margin-bottom: 22px; }
+.form-group { margin-bottom: 24px; }
 .form-group:last-of-type { margin-bottom: 0; }
 .form-label { display: block; font-family: var(--font-heading); font-size: 12px; font-weight: 600; color: var(--text-dim); letter-spacing: 0.3px; margin-bottom: 8px; }
-.form-input { width: 100%; height: 44px; padding: 0 14px; border-radius: 8px; background: var(--bg); border: 1px solid var(--border); color: var(--text); font-family: var(--font-body); font-size: 14px; line-height: 44px; transition: border-color 0.15s ease; }
+.form-section { padding: 18px 0; border-bottom: 1px solid var(--border-light); }
+.form-section:first-of-type { padding-top: 0; }
+.form-section:last-of-type { padding-bottom: 0; border-bottom: none; }
+.section-label { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-family: var(--font-heading); font-size: 12px; font-weight: 600; color: var(--text-dim); }
+.form-input { width: 100%; height: 44px; padding: 0 14px; border-radius: 8px; background: #fbfaf7; border: 1px solid var(--border); color: var(--text); font-family: var(--font-body); font-size: 14px; line-height: 44px; transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease; }
 .form-input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 2px var(--orange-dim); }
 .form-input::placeholder { color: var(--text-mute); }
-.form-hint { font-size: 10px; color: var(--text-mute); margin-top: 6px; }
+.form-hint { font-size: 10px; color: var(--text-mute); margin-top: 7px; }
 
 .ai-bar { display: flex; gap: 8px; align-items: center; }
 .ai-bar .form-input { flex: 1; }
 .ai-bar .btn { flex-shrink: 0; white-space: nowrap; height: 42px; padding: 0 18px; }
 
+.recipient-title-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.recipient-title-row .form-label { margin-bottom: 0; }
 .recipients-list { display: flex; flex-direction: column; gap: 8px; }
 .recipient-row { display: flex; align-items: center; gap: 8px; height: 42px; }
 .recipient-row .form-input[data-type="address"] { flex: 1; font-size: 12px; height: 38px; line-height: 38px; }
-.recipient-row .form-input[data-type="percent"] { width: 80px; flex-shrink: 0; font-size: 12px; height: 38px; line-height: 38px; text-align: center; }
+.percent-field { position: relative; width: 92px; flex-shrink: 0; }
+.percent-field .form-input[data-type="percent"] { width: 100%; flex-shrink: 0; font-size: 12px; height: 38px; line-height: 38px; text-align: center; padding-right: 26px; }
+.percent-field .form-input[data-type="percent"]::-webkit-outer-spin-button,
+.percent-field .form-input[data-type="percent"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.percent-field .form-input[data-type="percent"] { appearance: textfield; -moz-appearance: textfield; }
+.percent-field .form-input[data-type="percent"][readonly] { cursor: default; }
+.percent-unit { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); font-family: var(--font-heading); font-size: 11px; color: var(--text-mute); pointer-events: none; }
 .btn-remove {
   width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
   background: transparent; border: none; color: var(--text-mute); border-radius: 6px;
@@ -117,7 +132,7 @@ body {
 }
 .btn-remove:hover { background: var(--red-dim); color: var(--red); }
 .btn-add {
-  padding: 8px; background: transparent; border: 1px dashed var(--border); color: var(--text-mute);
+  height: 40px; padding: 0 8px; background: transparent; border: 1px dashed var(--border); color: var(--text-mute);
   cursor: pointer; border-radius: 8px; font-family: var(--font-heading); font-size: 11px;
   font-weight: 500; transition: all 0.15s ease; margin-top: 6px; text-align: center; width: 100%;
 }
@@ -131,15 +146,15 @@ body {
 .preview-dot { width: 7px; height: 7px; flex-shrink: 0; border-radius: 50%; }
 
 .btn-execute {
-  width: 100%; height: 46px; padding: 0; background: var(--orange); border: none; border-radius: 10px;
+  width: 100%; height: 50px; padding: 0; background: var(--orange); border: none; border-radius: 8px;
   color: #fff; cursor: pointer; margin-top: 22px;
   font-family: var(--font-heading); font-size: 14px; font-weight: 600;
   letter-spacing: 0.5px; transition: all 0.15s ease; display: flex; align-items: center; justify-content: center;
 }
-.btn-execute:hover { background: #c86a4d; }
+.btn-execute:hover { background: #c86a4d; transform: translateY(-1px); box-shadow: 0 8px 18px rgba(217,119,87,0.2); }
 
 .info-stack { display: flex; flex-direction: column; }
-.info-row { display: flex; justify-content: space-between; align-items: center; height: 52px; padding: 0; border-bottom: 1px solid var(--border-light); }
+.info-row { display: flex; justify-content: space-between; align-items: center; height: 50px; padding: 0; border-bottom: 1px solid var(--border-light); }
 .info-row:last-child { border-bottom: none; }
 .info-key { font-size: 13px; color: var(--text-dim); font-family: var(--font-heading); font-weight: 500; flex-shrink: 0; }
 .info-value { font-family: var(--font-mono); font-size: 13px; color: var(--text); text-align: right; }
@@ -148,26 +163,40 @@ body {
 
 .agent-hint { margin-top: 22px; }
 .agent-hint .hint-title { font-family: var(--font-heading); font-size: 11px; font-weight: 500; color: var(--text-dim); margin-bottom: 8px; }
-.agent-hint code { display: block; padding: 12px; background: var(--bg-muted); border-radius: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); word-break: break-all; line-height: 1.7; }
+.agent-hint code { display: block; padding: 13px 14px; background: #ebe9e1; border-radius: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); word-break: break-all; line-height: 1.7; }
 .agent-hint code .amount { color: var(--orange); }
 
-.tx-feed { display: flex; flex-direction: column; gap: 8px; max-height: 380px; overflow-y: auto; }
-.tx-item { display: flex; align-items: flex-start; gap: 12px; border-radius: 8px; padding: 14px; background: var(--bg); border-left: 3px solid var(--border); transition: all 0.15s ease; }
-.tx-item.success { border-left-color: var(--green); }
-.tx-item.error { border-left-color: var(--red); }
-.tx-icon-block { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--font-heading); font-size: 13px; font-weight: 600; border-radius: 6px; background: var(--bg-muted); color: var(--text-dim); }
+.tx-feed { display: flex; flex-direction: column; gap: 10px; max-height: 420px; overflow-y: auto; padding-right: 4px; }
+.tx-item { display: flex; align-items: flex-start; gap: 13px; border-radius: 8px; padding: 16px 18px; background: #fbfaf7; border: 1px solid rgba(212,208,200,0.5); transition: all 0.15s ease; }
+.tx-item:hover { border-color: rgba(120,140,93,0.28); transform: translateY(-1px); }
+.tx-item.success { border-color: rgba(120,140,93,0.22); }
+.tx-item.error { border-color: rgba(196,78,78,0.28); }
+.tx-icon-block { width: 42px; height: 42px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--font-heading); font-size: 15px; line-height: 1; font-weight: 600; border-radius: 8px; background: var(--bg-muted); color: var(--text-dim); }
+.tx-icon-block small { margin-top: 3px; font-size: 8px; font-weight: 600; letter-spacing: 0.6px; color: var(--text-mute); }
 .tx-item.success .tx-icon-block { background: rgba(120,140,93,0.1); color: var(--green); }
 .tx-item.error .tx-icon-block { background: var(--red-dim); color: var(--red); }
 .tx-content { flex: 1; min-width: 0; }
-.tx-header { display: flex; justify-content: space-between; margin-bottom: 4px; }
-.tx-title { font-family: var(--font-heading); font-size: 12px; font-weight: 600; color: var(--text); }
-.tx-time { font-size: 10px; color: var(--text-mute); font-style: italic; white-space: nowrap; }
-.tx-hash { font-family: var(--font-mono); font-size: 10px; color: var(--blue); text-decoration: none; word-break: break-all; display: block; margin-bottom: 4px; }
+.tx-header { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.tx-title { font-family: var(--font-heading); font-size: 13px; font-weight: 600; color: var(--text); }
+.tx-time { margin-left: auto; font-size: 11px; color: var(--text-mute); font-style: italic; white-space: nowrap; }
+.tx-hash { font-family: var(--font-mono); font-size: 11px; color: var(--blue); text-decoration: none; word-break: break-all; display: block; margin-bottom: 5px; }
 .tx-hash:hover { text-decoration: underline; }
-.tx-details { font-size: 11px; color: var(--text-dim); }
-.tx-status-tag { display: inline-block; padding: 1px 8px; margin-top: 6px; font-family: var(--font-heading); font-size: 10px; font-weight: 500; }
+.tx-details { font-size: 12px; color: var(--text-dim); }
+.tx-status-tag { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 999px; background: rgba(120,140,93,0.1); font-family: var(--font-heading); font-size: 11px; font-weight: 500; text-align: center; white-space: nowrap; }
 .tx-item.success .tx-status-tag { color: var(--green); }
-.tx-item.error .tx-status-tag { color: var(--red); }
+.tx-item.error .tx-status-tag { color: var(--red); background: var(--red-dim); }
+.tx-status-tag.err { color: var(--red); }
+
+.chain-history { margin-top: 16px; border-top: 1px solid var(--border-light); padding-top: 14px; display: none; }
+.chain-toggle { width: 100%; height: 34px; display: flex; align-items: center; justify-content: space-between; padding: 0; border: 0; background: transparent; color: var(--text); cursor: pointer; font-family: var(--font-heading); font-size: 15px; font-weight: 600; }
+.chain-toggle:hover { color: var(--text); }
+.chain-title { display: flex; align-items: center; gap: 8px; }
+.chain-title .accent-dot { width: 7px; height: 7px; background: var(--orange); border-radius: 50%; }
+.chain-meta { display: inline-flex; align-items: center; gap: 6px; color: var(--text-mute); font-size: 12px; font-weight: 500; }
+.chain-chevron { display: inline-block; transition: transform 0.16s ease; }
+.chain-history.open .chain-chevron { transform: rotate(180deg); }
+.chain-body { display: none; flex-direction: column; gap: 10px; margin-top: 8px; }
+.chain-history.open .chain-body { display: flex; }
 
 .empty-state { text-align: center; padding: 48px 20px; color: var(--text-mute); }
 .empty-state .void-icon { font-family: var(--font-heading); font-size: 28px; font-weight: 300; margin-bottom: 10px; color: var(--text-mute); }
@@ -195,7 +224,7 @@ body {
 .reveal { animation: revealUp 0.4s ease forwards; opacity: 0; }
 .reveal-1 { animation-delay: 0.03s; }.reveal-2 { animation-delay: 0.10s; }.reveal-3 { animation-delay: 0.17s; }.reveal-4 { animation-delay: 0.24s; }.reveal-5 { animation-delay: 0.31s; }
 
-.footer { text-align: center; padding: 28px 0 16px; margin-top: 28px; border-top: 1px solid var(--border-light); color: var(--text-mute); font-size: 11px; }
+.footer { text-align: center; padding: 30px 0 14px; margin-top: 28px; border-top: 1px solid var(--border-light); color: var(--text-mute); font-size: 11px; }
 .footer a { color: var(--blue); text-decoration: none; }
 .footer a:hover { text-decoration: underline; }
 
@@ -251,22 +280,30 @@ body {
     <div class="card reveal reveal-3" style="position:relative;">
       <div class="loading-overlay" id="createLoading"><div class="loader-ring"></div><div class="loading-text" id="loadingText">处理中...</div></div>
       <div class="card-header"><div class="card-title"><span class="accent-dot"></span>创建分账</div></div>
-      <div class="form-group">
-        <label class="form-label">AI 智能解析</label>
-        <div class="ai-bar">
-          <input type="text" class="form-input" id="aiInput" placeholder="用自然语言描述分账规则"/>
-          <button class="btn btn-primary" onclick="aiParse()" id="aiBtn">解析</button>
+      <div class="form-section">
+        <div class="section-label"><span>智能解析</span></div>
+        <div class="form-group">
+          <div class="ai-bar">
+            <input type="text" class="form-input" id="aiInput" placeholder="用自然语言描述分账规则"/>
+            <button class="btn btn-primary" onclick="aiParse()" id="aiBtn">解析</button>
+          </div>
+          <div class="form-hint">由 DeepSeek V4 Pro 驱动，支持任意中文表达</div>
         </div>
-        <div class="form-hint">由 DeepSeek V4 Pro 驱动，支持任意中文表达</div>
       </div>
-      <div class="form-group">
-        <label class="form-label">金额 (ETH)</label>
-        <input type="number" class="form-input" id="totalAmount" placeholder="1.0" step="0.01" min="0.001"/>
-      </div>
-      <div class="form-group">
-        <label class="form-label">接收者</label>
-        <div class="recipients-list" id="recipientsList"></div>
-        <button class="btn-add" onclick="addRecipient()">+ 添加</button>
+      <div class="form-section">
+        <div class="section-label"><span>分账参数</span></div>
+        <div class="form-group">
+          <label class="form-label">金额 (ETH)</label>
+          <input type="number" class="form-input" id="totalAmount" placeholder="1.0" step="0.01" min="0.001"/>
+        </div>
+        <div class="form-group">
+          <div class="recipient-title-row">
+            <label class="form-label">接收者与比例</label>
+          </div>
+          <div class="recipients-list" id="recipientsList"></div>
+          <div class="form-hint">填写前面地址的百分比，最后一项会自动补足，总和必须为 100%。</div>
+          <button class="btn-add" onclick="addRecipient()">+ 添加</button>
+        </div>
       </div>
       <div class="split-preview" id="splitPreview" style="display:none;">
         <div class="preview-bar" id="previewBar"></div>
@@ -293,6 +330,13 @@ body {
     <div class="card grid-full reveal reveal-5">
       <div class="card-header"><div class="card-title"><span class="accent-dot"></span>分账历史</div><button class="btn btn-secondary btn-sm" onclick="clearHistory()">清空</button></div>
       <div class="tx-feed" id="txFeed"><div class="empty-state"><div class="void-icon">—</div><p>暂无分账记录，连接钱包后开始使用</p></div></div>
+      <div class="chain-history" id="chainHistory">
+        <button class="chain-toggle" type="button" onclick="toggleChainHistory()">
+          <span class="chain-title"><span class="accent-dot"></span>链上记录</span>
+          <span class="chain-meta"><span id="chainCount">0</span> 条 <span class="chain-chevron">v</span></span>
+        </button>
+        <div class="chain-body" id="chainFeed"></div>
+      </div>
     </div>
   </div>
 
@@ -369,7 +413,7 @@ const SEPOLIA_ID=11155111,MAX_R=8,MIN_R=2,TOTAL_PCT=100;
 const EXPLORER='https://sepolia.etherscan.io';
 const ABIs=[{"inputs":[{"internalType":"address[]","name":"_recipients","type":"address[]"},{"internalType":"uint256[]","name":"_percentages","type":"uint256[]"}],"name":"createSplit","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_splitId","type":"uint256"}],"name":"executeSplit","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_splitId","type":"uint256"}],"name":"getSplit","outputs":[{"internalType":"address","name":"creator","type":"address"},{"internalType":"address[]","name":"recipients","type":"address[]"},{"internalType":"uint256[]","name":"percentages","type":"uint256[]"},{"internalType":"uint256","name":"totalAmount","type":"uint256"},{"internalType":"bool","name":"executed","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"splitCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"splitId","type":"uint256"},{"indexed":true,"internalType":"address","name":"creator","type":"address"},{"indexed":false,"internalType":"uint256","name":"totalAmount","type":"uint256"}],"name":"SplitCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"splitId","type":"uint256"},{"indexed":true,"internalType":"address","name":"creator","type":"address"},{"indexed":false,"internalType":"uint256","name":"totalAmount","type":"uint256"}],"name":"SplitExecuted","type":"event"}];
 const PAL=['#d97757','#6a9bcc','#788c5d','#b0aea5','#c44e4e','#e8a840','#9b7eb8','#5a9e8f'];
-let web3=null,contract=null,account=null,recipientCount=0,transactions=[],_deb=null,_evtBound=false;
+let web3=null,contract=null,account=null,recipientCount=0,transactions=[],chainRecords=[],_deb=null,_evtBound=false;
 
 function sh(a,f=6,b=4){return a.slice(0,f)+'...'+a.slice(-b);}
 function su(arr){return arr.reduce((x,y)=>x+y,0);}
@@ -391,6 +435,7 @@ async function aiParse(){
     const p=JSON.parse(raw);document.getElementById('totalAmount').value=p.amount_eth||'';
     const l=document.getElementById('recipientsList');l.innerHTML='';recipientCount=0;
     p.recipients.forEach((r,i)=>{addRecipient(true);const row=document.getElementById('r-'+i);if(row){row.querySelector('[data-type="address"]').value=r.address||'';row.querySelector('[data-type="percent"]').value=r.percentage||'';}});
+    normalizePercentages();
     updatePreview();showToast('解析完成','success');
   }catch(e){showToast('解析失败: '+e.message,'error');}
   b.disabled=false;b.textContent='解析';
@@ -436,19 +481,89 @@ async function connectWallet(){
 
 async function refreshInfo(){
   if(!contract)return;
-  try{const c=await contract.methods.splitCount().call();document.getElementById('statSplits').textContent=c;document.getElementById('infoSplits').textContent=c;const bal=await web3.eth.getBalance(CONTRACT_ADDRESS),be=web3.utils.fromWei(bal,'ether');document.getElementById('statBalance').textContent=parseFloat(be).toFixed(4);document.getElementById('infoBalance').textContent=parseFloat(be).toFixed(4)+' ETH';let u=new Set(),v=BigInt(0);for(let i=0;i<Number(c);i++){try{const s=await contract.methods.getSplit(i).call();s.recipients.forEach(r=>u.add(r.toLowerCase()));v+=BigInt(s.totalAmount);}catch(e){break;}}document.getElementById('statRecipients').textContent=u.size;document.getElementById('statVolume').textContent=parseFloat(web3.utils.fromWei(v.toString(),'ether')).toFixed(4);}catch(e){}
+  try{
+    const c=await contract.methods.splitCount().call();
+    document.getElementById('statSplits').textContent=c;
+    document.getElementById('infoSplits').textContent=c;
+    const bal=await web3.eth.getBalance(CONTRACT_ADDRESS),be=web3.utils.fromWei(bal,'ether');
+    document.getElementById('statBalance').textContent=parseFloat(be).toFixed(4);
+    document.getElementById('infoBalance').textContent=parseFloat(be).toFixed(4)+' ETH';
+    let u=new Set(),v=BigInt(0),records=[];
+    for(let i=0;i<Number(c);i++){
+      try{
+        const s=await contract.methods.getSplit(i).call();
+        s.recipients.forEach(r=>u.add(r.toLowerCase()));
+        v+=BigInt(s.totalAmount);
+        records.unshift({
+          type:'chain',
+          splitId:i,
+          amount:parseFloat(web3.utils.fromWei(s.totalAmount,'ether')),
+          addresses:s.recipients,
+          percentages:s.percentages.map(Number),
+          executed:s.executed,
+          creator:s.creator
+        });
+      }catch(e){break;}
+    }
+    chainRecords=records;
+    document.getElementById('statRecipients').textContent=u.size;
+    document.getElementById('statVolume').textContent=parseFloat(web3.utils.fromWei(v.toString(),'ether')).toFixed(4);
+    renderTx();
+  }catch(e){}
 }
 
 function addRecipient(skipPv){
   if(recipientCount>=MAX_R){showToast('最多 '+MAX_R+' 个接收者','info');return;}
   const d=document.createElement('div');d.className='recipient-row';d.id='r-'+recipientCount;
-  d.innerHTML=`<input type="text" class="form-input" placeholder="0x..." data-type="address" oninput="dpv()"/><input type="number" class="form-input" value="50" min="1" max="100" data-type="percent" oninput="dpv()"/><button class="btn-remove" onclick="removeRecipient(${recipientCount})">&times;</button>`;
+  d.innerHTML=`<input type="text" class="form-input" placeholder="钱包地址 0x..." data-type="address" oninput="dpv(this)"/><div class="percent-field"><input type="number" class="form-input" value="50" min="1" max="100" data-type="percent" aria-label="分账比例百分比" oninput="dpv(this)"/><span class="percent-unit">%</span></div><button class="btn-remove" onclick="removeRecipient(${recipientCount})">&times;</button>`;
   document.getElementById('recipientsList').appendChild(d);recipientCount++;
-  if(!skipPv)updatePreview();
+  if(!skipPv){splitLastPercent();updatePreview();}
 }
-function removeRecipient(id){const rows=document.querySelectorAll('.recipient-row');if(rows.length<=1){showToast('至少保留 1 个接收者','error');return;}const r=document.getElementById('r-'+id);if(r){r.remove();updatePreview();}}
+function removeRecipient(id){const rows=document.querySelectorAll('.recipient-row');if(rows.length<=1){showToast('至少保留 1 个接收者','error');return;}const r=document.getElementById('r-'+id);if(r){r.remove();normalizePercentages();updatePreview();}}
 
-function dpv(){clearTimeout(_deb);_deb=setTimeout(updatePreview,100);}
+function syncAutoPercentState(){
+  const inputs=Array.from(document.querySelectorAll('[data-type="percent"]'));
+  inputs.forEach((input,i)=>{input.readOnly=inputs.length>1&&i===inputs.length-1;});
+}
+
+function splitLastPercent(){
+  const inputs=Array.from(document.querySelectorAll('[data-type="percent"]'));
+  if(!inputs.length)return;
+  if(inputs.length===1){inputs[0].value=TOTAL_PCT;syncAutoPercentState();return;}
+  const prev=inputs[inputs.length-2],last=inputs[inputs.length-1];
+  const current=Math.max(2,parseInt(prev.value,10)||TOTAL_PCT);
+  const moved=Math.max(1,Math.floor(current/2));
+  prev.value=current-moved;
+  last.value=moved;
+  normalizePercentages();
+}
+
+function normalizePercentages(changedInput){
+  const inputs=Array.from(document.querySelectorAll('[data-type="percent"]'));
+  if(!inputs.length)return;
+  syncAutoPercentState();
+  if(inputs.length===1){inputs[0].value=TOTAL_PCT;return;}
+  const autoInput=inputs[inputs.length-1],manualInputs=inputs.slice(0,-1);
+  if(changedInput&&changedInput===autoInput)return;
+  if(!changedInput||changedInput.dataset.type!=='percent'){
+    const manualTotal=manualInputs.reduce((sum,input)=>sum+(parseInt(input.value,10)||0),0);
+    autoInput.value=Math.max(0,TOTAL_PCT-manualTotal);
+    return;
+  }
+  if(changedInput.value==='')return;
+  const otherManualTotal=manualInputs.filter(input=>input!==changedInput).reduce((sum,input)=>sum+(parseInt(input.value,10)||0),0);
+  const max=Math.max(0,TOTAL_PCT-otherManualTotal);
+  let value=parseInt(changedInput.value,10);
+  if(!Number.isFinite(value))value=0;
+  value=Math.max(0,Math.min(max,value));
+  changedInput.value=value;
+  const manualTotal=manualInputs.reduce((sum,input)=>sum+(parseInt(input.value,10)||0),0);
+  autoInput.value=Math.max(0,TOTAL_PCT-manualTotal);
+}
+
+function dpv(src){if(src&&src.dataset.type==='percent')normalizePercentages(src);clearTimeout(_deb);_deb=setTimeout(function(){updatePreview();},100);}
+
+
 function updatePreview(){
   const {addresses:ad,percentages:pc}=getRecipients();
   const pv=document.getElementById('splitPreview');if(ad.length<MIN_R){pv.style.display='none';return;}pv.style.display='block';
@@ -479,17 +594,34 @@ async function executeSplit(){
 }
 
 function addTx(type,hash,am,ad,pc,error){transactions.unshift({type,hash,amount:am,addresses:ad,percentages:pc,time:new Date().toLocaleTimeString('zh-CN'),error});saveHistory();renderTx();}
+function renderHistoryItem(t,isChain){
+  const e=t.type==='error',c=e?'error':'success';
+  const step=isChain?'#'+t.splitId:(t.type==='create'?'1':'2');
+  const title=e?'交易失败':(isChain?'分账 #'+t.splitId:((t.type==='create'?'创建':'执行')+'分账'));
+  const status=e?'失败':(isChain?(t.executed?'已执行':'待执行'):'已确认');
+  const hash=t.hash?`<a class="tx-hash" href="${EXPLORER}/tx/${t.hash}" target="_blank">${sh(t.hash,10,8)}</a>`:(isChain?`<a class="tx-hash" href="${EXPLORER}/address/${CONTRACT_ADDRESS}" target="_blank">查看 Sepolia 链上合约</a>`:'');
+  return `<div class="tx-item ${c}"><div class="tx-icon-block">${e?'x':step}<small>${isChain?'ID':(e?'ERR':'STEP')}</small></div><div class="tx-content"><div class="tx-header"><span class="tx-title">${title}</span><span class="tx-status-tag ${e?'err':''}">${status}</span>${t.time?`<span class="tx-time">${t.time}</span>`:''}</div>${hash}<div class="tx-details">${t.amount?t.amount+' ETH · '+t.addresses.length+' 个地址':t.error||''}</div></div></div>`;
+}
+function renderChainRecords(){
+  const wrap=document.getElementById('chainHistory'),feed=document.getElementById('chainFeed'),count=document.getElementById('chainCount');
+  if(!wrap||!feed||!count)return;
+  if(!chainRecords.length){wrap.style.display='none';wrap.classList.remove('open');feed.innerHTML='';count.textContent='0';return;}
+  wrap.style.display='block';count.textContent=chainRecords.length;feed.innerHTML=chainRecords.map(t=>renderHistoryItem(t,true)).join('');
+}
+function toggleChainHistory(){const wrap=document.getElementById('chainHistory');if(wrap)wrap.classList.toggle('open');}
 function renderTx(){
   const f=document.getElementById('txFeed');
-  if(!transactions.length){f.innerHTML='<div class="empty-state"><div class="void-icon">—</div><p>暂无分账记录，连接钱包后开始使用</p></div>';return;}
-  f.innerHTML=transactions.map(t=>{
-    const e=t.type==='error',c=e?'error':'success',step=t.type==='create'?'1':'2',ico=t.type==='create'?'创建':'执行';
-    return `<div class="tx-item ${c}"><div class="tx-icon-block">${e?'✕':step}</div><div class="tx-content"><div class="tx-header"><span class="tx-title">${e?'交易失败':('第'+step+'步 · '+ico+'分账')}</span><span class="tx-time">${t.time}</span></div>${t.hash?`<a class="tx-hash" href="${EXPLORER}/tx/${t.hash}" target="_blank">${t.hash}</a>`:''}<div class="tx-details">${t.amount?t.amount+' ETH → '+t.addresses.length+' 个地址':t.error||''}</div><span class="tx-status-tag">${e?'失败':'已确认'}</span></div></div>`;
-  }).join('');
+  if(!transactions.length){
+    const msg=chainRecords.length?'暂无本地交易记录，可展开下方链上记录查看':'暂无分账记录，连接钱包后开始使用';
+    f.innerHTML=`<div class="empty-state"><div class="void-icon">—</div><p>${msg}</p></div>`;
+  }else{
+    f.innerHTML=transactions.map(t=>renderHistoryItem(t,false)).join('');
+  }
+  renderChainRecords();
 }
 function saveHistory(){try{localStorage.setItem('splitchain_log',JSON.stringify(transactions.slice(0,50)));}catch(e){}}
 function loadHistory(){try{const s=localStorage.getItem('splitchain_log');if(s){transactions=JSON.parse(s);renderTx();}}catch(e){}}
-function clearHistory(){transactions=[];saveHistory();renderTx();showToast('历史已清空','info');}
+function clearHistory(){transactions=[];saveHistory();renderTx();showToast('本地历史已清空','info');}
 
 function showToast(msg,type='info'){const c=document.getElementById('toastContainer'),d=document.createElement('div'),colors={success:'var(--green)',error:'var(--red)',info:'var(--blue)'},icons={success:'+',error:'!',info:'i'};d.className='toast '+type;const sp=document.createElement('span');sp.style.cssText='font-family:var(--font-heading);font-weight:600;font-size:13px;color:'+colors[type];sp.textContent=icons[type];const txt=document.createElement('span');txt.textContent=msg;d.appendChild(sp);d.appendChild(txt);c.appendChild(d);setTimeout(()=>d.remove(),3000);}
 function triggerConfetti(){const c=document.getElementById('confettiContainer');for(let i=0;i<60;i++){const p=document.createElement('div');p.className='confetti-particle';p.style.left=Math.random()*100+'%';p.style.background=PAL[Math.floor(Math.random()*PAL.length)];p.style.animationDuration=(1.8+Math.random()*2)+'s';p.style.animationDelay=Math.random()*.5+'s';p.style.width=p.style.height=(3+Math.random()*6)+'px';c.appendChild(p);setTimeout(()=>p.remove(),3500);}}
