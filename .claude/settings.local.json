@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npx hardhat *)",
+      "Bash(python *)",
+      "Bash(start *)",
+      "Bash(cmd.exe *)",
+      "Bash(powershell *)",
+      "Bash(explorer *)",
+      "Bash(conda deactivate *)",
+      "WebSearch",
+      "Bash(pip install *)",
+      "Bash(curl -L -o web3.min.js \"https://unpkg.com/web3@4.11.1/dist/web3.min.js\")"
+    ]
+  }
+}

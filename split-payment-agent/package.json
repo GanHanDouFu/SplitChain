@@ -1,0 +1,19 @@
+{
+  "name": "split-payment-agent",
+  "version": "1.0.0",
+  "description": "AI Agent driven on-chain payment splitting system",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
+    "demo": "python -m http.server 8080 -d demo",
+    "deploy:local": "npx hardhat run scripts/deploy.js",
+    "deploy:sepolia": "npx hardhat run scripts/deploy.js --network sepolia"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
+}
